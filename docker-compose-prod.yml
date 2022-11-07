@@ -1,0 +1,32 @@
+services:
+  web:
+    restart: always
+    command: ["./start.sh"]
+    environment:
+      - GUNICORN_WEB_WORKERS
+      - GUNICORN_MAX_REQUESTS
+      - GUNICORN_ACCESS_LOG_ENABLE
+  postgres:
+    restart: always
+  nginx:
+    image: umputun/nginx-le:v1.4.3
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
+    depends_on:
+      - web
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - TZ=UTC
+      - LETSENCRYPT
+      - LE_FQDN
+      - LE_EMAIL
+    volumes:
+      - ./nginx/etc/nginx.conf:/etc/nginx/service.conf
+      - ./nginx/etc/ssl/:/etc/nginx/ssl/
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"

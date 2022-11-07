@@ -1,0 +1,6 @@
+django
+django-environ
+psycopg2
+gunicorn
+whitenoise
+django_compressor

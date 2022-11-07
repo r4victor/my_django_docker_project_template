@@ -1,0 +1,39 @@
+name: my_django_docker_project_template
+services:
+  web:
+    image: ${COMPOSE_PROJECT_NAME}_web
+    container_name: ${COMPOSE_PROJECT_NAME}_web
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DJANGO_SETTINGS_MODULE
+      - DJANGO_SECRET_KEY
+      - DJANGO_ALLOWED_HOSTS
+      - DJANGO_CSRF_TRUSTED_ORIGINS
+      - DJANGO_LOG_LEVEL
+      - ROOT_LOG_LEVEL
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+  postgres:
+    image: postgres:14
+    container_name: ${COMPOSE_PROJECT_NAME}_postgres
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - PGDATA=/data/postgres
+    volumes:
+       - ${POSTGRES_VOLUME}:/data/postgres
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"

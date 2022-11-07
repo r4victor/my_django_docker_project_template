@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Title{% endblock %} | example.com</title>
+    {% load static %}
+    {% load compress %}
+    {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'core/css/main.scss' %}">
+    {% endcompress %}
+  </head>
+  <body>
+    <header>
+      <div class="logo"><a href="/">example.com</a></div>
+      <div class="slogan">The best website in the world</div>
+    </header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+    <footer>
+      © 2022 <a href="/">example.com</a>
+    </footer>
+  </body>
+</html>

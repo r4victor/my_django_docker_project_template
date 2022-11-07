@@ -1,0 +1,11 @@
+header, main, footer {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 20px 15px;
+}
+
+header {
+  .logo {
+    font-size: 30px;
+  }
+}
