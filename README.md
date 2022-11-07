@@ -1,6 +1,6 @@
 # my_django_docker_project_template
 
-This repo is a blueprint for building simple Django+Postgres+Gunicorn+nginx+Docker web projects to be deployed on a single VPS. 
+This repo is a blueprint for Django + Postgres + Gunicorn + nginx + Docker web projects to be deployed on a single VPS. 
 
 
 ## Overview
