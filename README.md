@@ -33,7 +33,7 @@ The combination `-f docker-compose-base.yml -f docker-compose-prod.yml` defines 
 2. Init a new git folder:
 
     ```
-    rm -r .git && git init
+    rm -rf .git && git init
     ```
 
 3. Create an `.env` file from the template:
