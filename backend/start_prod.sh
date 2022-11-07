@@ -1,5 +1,6 @@
 #!/bin/sh
-
 python manage.py collectstatic --noinput && python manage.py compress
 
-gunicorn backend.wsgi --bind=0.0.0.0
+wait-for-it -t 60 postgres:5432
+
+exec "$@"

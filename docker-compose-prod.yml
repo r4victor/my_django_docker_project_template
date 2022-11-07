@@ -1,7 +1,8 @@
 services:
   web:
     restart: always
-    command: ["./start.sh"]
+    entrypoint: ["./start_prod.sh"]
+    command: ["gunicorn", "backend.wsgi", "--bind=0.0.0.0"]
     environment:
       - GUNICORN_WEB_WORKERS
       - GUNICORN_MAX_REQUESTS
