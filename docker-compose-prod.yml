@@ -1,7 +1,7 @@
 services:
   web:
     restart: always
-    entrypoint: ["./start_prod.sh"]
+    entrypoint: ["./start.sh"]
     command: ["gunicorn", "backend.wsgi", "--bind=0.0.0.0"]
     environment:
       - GUNICORN_WEB_WORKERS
