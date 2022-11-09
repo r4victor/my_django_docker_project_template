@@ -1,0 +1,33 @@
+name: Build and test
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    - name: Build the Docker image
+      uses: docker/build-push-action@v3
+      with:
+        tags: ${{ env.PROJECT_NAME }}_web
+        load: true
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    - name: Run tests
+      run: docker compose -f docker-compose-base.yml -f docker-compose-prod.yml run --rm web ./manage.py test
+    env:
+      PROJECT_NAME: my_django_docker_project_template
+      DJANGO_SETTINGS_MODULE: backend.settings.prod
+      DJANGO_ALLOWED_HOSTS: localhost
+      DJANGO_CSRF_TRUSTED_ORIGINS: https://localhost
+      POSTGRES_USER: db_user
+      POSTGRES_PASSWORD: db_pass
+      POSTGRES_DB: db
+      POSTGRES_VOLUME: ./postgres
