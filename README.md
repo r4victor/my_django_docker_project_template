@@ -1,6 +1,6 @@
 # my_django_docker_project_template
 
-This repo is a blueprint for Django + Postgres + Gunicorn + nginx + Docker web projects to be deployed on a single VPS. 
+This repo is a blueprint for Django + Postgres + Gunicorn + nginx + Docker web projects to be deployed on a VPS. 
 
 
 ## Overview
@@ -49,7 +49,7 @@ That's it! You have a new project set up!
 
 ### Local development
 
-Nothing is installed locally. All local development is done with `docker compose`. To start a Django dev server, run:
+To start a Django dev server, run:
 
 ```
 docker compose -f docker-compose-base.yml -f docker-compose-dev.yml up
@@ -83,6 +83,6 @@ The only difference is that you need to change env variables to match your domai
 
 ## TODO
 
-* Static files are collected when the image starts. We can do it on image build and remove `sass` dependency from the final image. This requires some trickery to run `manage.py` in Dockerfile.
-* Set up CI/CD pipeline (e.g. via GitHub Actions).
 * Zero downtime deployments. One option would be to make nginx buffer requests while we run migrations and restart the app.
+* Set up automatic deployments on tag releases.
+* We run `manage.py` in Dockerfile to bake static files into the image. To avoid passing dummy env vars there, Django prod settings allows all env vars to be optional. I don't like this since we may want to fail on app start if some env vars are not provided. Another solution would be to make a separate settings file for running in Dockerfile.
