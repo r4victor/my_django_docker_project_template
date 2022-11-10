@@ -23,8 +23,10 @@ FROM python:3.11-slim
 
 RUN apt-get update && apt-get install -y libpq-dev wait-for-it
 
+COPY --from=build /opt/dart-sass /opt/dart-sass
 COPY --from=build /web/venv /web/venv
 COPY --from=build /web/backend /web/backend
 
+ENV PATH=/opt/dart-sass:$PATH
 ENV PATH=/web/venv/bin:$PATH
 WORKDIR /web/backend
